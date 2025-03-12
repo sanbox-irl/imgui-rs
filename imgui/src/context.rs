@@ -560,6 +560,21 @@ impl Context {
         }
     }
 
+    /// Finishes the frame *without* generating any render data.
+    /// You can call this function instead of calling [`render`],
+    /// but generally it would be better to not even bother having made
+    /// the frame if you are going to throw it away.
+    ///
+    /// This should only be called after calling [`new_frame`].
+    ///
+    /// [`new_frame`]: Self::new_frame
+    #[doc(alias = "EndFrame")]
+    pub fn finish_frame_without_render(&mut self) {
+        unsafe {
+            sys::igEndFrame();
+        }
+    }
+
     /// Returns the currently desired mouse cursor type.
     ///
     /// This was set *last frame* by the [Ui] object, and will be reset when
